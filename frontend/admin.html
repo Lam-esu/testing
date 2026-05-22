@@ -6,52 +6,32 @@
     <title>Admin Panel</title>
     <link rel="stylesheet" href="style.css">
 </head>
+<script src="js/auth.js"></script>
 <body>
 
 <div class="container">
 
     <aside class="sidebar">
-        <h2>CCTV MONITORING</h2>
-        <p class="sidebar-subtitle">SYSTEM</p>
+        <h2>SECURE CCTV</h2>
+        <p class="sidebar-subtitle">MONITORING</p>
 
-                <ul>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="cameras.html">Cameras</a></li>
 
-            <li>
-                <a  href="dashboard.html">
-                    Dashboard
-                </a>
+            <li class="admin-only">
+                <a href="logs.html">Logs</a>
             </li>
 
-            <li>
-                <a href="cameras.html">
-                    Cameras
-                </a>
+            <li class="admin-only">
+                <a class="active" href="admin.html">Users</a>
             </li>
 
-            <li>
-                <a href="logs.html">
-                    Logs
-                </a>
-            </li>
+            <li><a href="settings.html">Settings</a></li>
 
             <li>
-                <a class="active" href="admin.html">
-                    Users
-                </a>
+                <button id="logoutBtn" class="logout-btn">Logout</button>
             </li>
-
-            <li>
-                <a href="settings.html">
-                    Settings
-                </a>
-            </li>
-
-            <li>
-                <button id="logoutBtn" class="logout-btn">
-                    Logout
-                </button>
-            </li>
-
         </ul>
     </aside>
 
