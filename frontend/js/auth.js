@@ -1,20 +1,30 @@
-document.addEventListener(
-    "DOMContentLoaded",
+window.addEventListener(
+    "load",
     async function () {
+
+        document.body.style.visibility =
+        "visible";
 
         try {
 
             const response =
             await fetch(
+
                 "/api/auth/me",
+
                 {
-                    method: "GET",
+                    method:
+                    "GET",
+
                     credentials:
                     "include"
                 }
+
             );
 
-            if (!response.ok) {
+            if (
+                !response.ok
+            ) {
 
                 window.location.href =
                 "/";
@@ -25,9 +35,13 @@ document.addEventListener(
             const user =
             await response.json();
 
+            // HIDE ADMIN MENUS
+
             if (
+
                 user.role !==
                 "admin"
+
             ) {
 
                 document
@@ -36,23 +50,31 @@ document.addEventListener(
                 )
 
                 .forEach(
-                    item =>
-                    item.style.display =
-                    "none"
+
+                    item => {
+
+                        item.style.display =
+                        "none";
+
+                    }
+
                 );
 
-                const currentPage =
+                // BLOCK DIRECT ACCESS
+
+                const page =
+
                 window.location.pathname;
 
                 if (
 
-                    currentPage.includes(
+                    page.includes(
                         "logs.html"
                     )
 
                     ||
 
-                    currentPage.includes(
+                    page.includes(
                         "admin.html"
                     )
 
@@ -65,26 +87,79 @@ document.addEventListener(
                     window.location.href =
                     "/dashboard.html";
 
+                    return;
+
                 }
 
             }
 
+            // ACTIVE SIDEBAR
+
+            document
+            .querySelectorAll(
+                ".sidebar a"
+            )
+
+            .forEach(
+
+                link => {
+
+                    link.classList.remove(
+                        "active"
+                    );
+
+                    if (
+
+                        window.location.pathname
+                        .includes(
+
+                            link.getAttribute(
+                                "href"
+                            )
+
+                        )
+
+                    ) {
+
+                        link.classList.add(
+                            "active"
+                        );
+
+                    }
+
+                }
+
+            );
+
         }
 
-        catch {
+        catch (
+
+            error
+
+        ) {
+
+            console.error(
+                error
+            );
 
             window.location.href =
             "/";
 
         }
 
+        // LOGOUT
+
         const logoutBtn =
+
         document.getElementById(
             "logoutBtn"
         );
 
         if (
+
             logoutBtn
+
         ) {
 
             logoutBtn
@@ -94,19 +169,25 @@ document.addEventListener(
 
                 async () => {
 
-                    await fetch(
+                    try {
 
-                        "/api/auth/logout",
+                        await fetch(
 
-                        {
-                            method:
-                            "POST",
+                            "/api/auth/logout",
 
-                            credentials:
-                            "include"
-                        }
+                            {
+                                method:
+                                "POST",
 
-                    );
+                                credentials:
+                                "include"
+                            }
+
+                        );
+
+                    }
+
+                    catch {}
 
                     window.location.href =
                     "/";
